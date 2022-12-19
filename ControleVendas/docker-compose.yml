@@ -1,8 +1,19 @@
 version: '3.4'
 
 services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "root"
+      POSTGRES_USER: "postgres"
+    ports:
+      - "5432:5432"
+       
   controlevendas:
     image: ${DOCKER_REGISTRY-}controlevendas
+    depends_on:
+      - postgres
     build:
       context: .
       dockerfile: Dockerfile
