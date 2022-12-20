@@ -9,6 +9,7 @@
     <DockerServiceName>controlevendas</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="dbscripts - Cópia\seed.sql" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
