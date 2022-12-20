@@ -1,19 +1,40 @@
 version: '3.4'
 
+networks:
+  controlevendas-dev:
+    driver: bridge
+
 services:
-  postgres:
+  db:
     image: postgres
     restart: always
+
     environment:
-      POSTGRES_PASSWORD: "root"
-      POSTGRES_USER: "postgres"
+        POSTGRES_USER: "postgres"  
+        POSTGRES_PASSWORD: "root"
+        POSTGRES_DB: "sales"
+    
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+
     ports:
       - "5432:5432"
-       
+    
+    networks:
+      - controlevendas-dev
+ 
   controlevendas:
     image: ${DOCKER_REGISTRY-}controlevendas
     depends_on:
-      - postgres
+      - db
+    
     build:
       context: .
       dockerfile: Dockerfile
+    
+    networks:
+      - controlevendas-dev
+  
+volumes:
+    db_volume:

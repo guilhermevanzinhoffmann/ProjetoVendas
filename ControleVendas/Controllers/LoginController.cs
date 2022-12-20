@@ -10,16 +10,22 @@ namespace ControleVendas.Controllers
     [Route("api/authentication")]
     public class LoginController : ControllerBase
     {
+        private readonly IUserRepository _userRepository;
+        public LoginController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<ActionResult<dynamic>> LoginAsync([FromBody]LoginInput login)
         {
-            if (login == null)
+            if (login == null || string.IsNullOrEmpty(login.Username) || string.IsNullOrEmpty(login.Password))
             {
-                throw new ArgumentNullException(nameof(login));
+                BadRequest($"Login e Password devem ser informados.");
             }
 
-            var user = UserRepository.GetUser(login.Username, login.Password);
+            var user = _userRepository.Get(login.Username, login.Password);
 
             if (user == null)
                 return NotFound("Usuário ou senha inválidos");
