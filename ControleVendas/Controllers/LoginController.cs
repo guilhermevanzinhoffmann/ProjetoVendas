@@ -20,15 +20,15 @@ namespace ControleVendas.Controllers
         [Route("login")]
         public async Task<ActionResult<dynamic>> LoginAsync([FromBody]LoginInput login)
         {
-            if (login == null || string.IsNullOrEmpty(login.Username) || string.IsNullOrEmpty(login.Password))
+            if (login == null || string.IsNullOrEmpty(login.Email) || string.IsNullOrEmpty(login.Password))
             {
-                BadRequest($"Login e Password devem ser informados.");
+                BadRequest($"Email e Password devem ser informados.");
             }
 
-            var user = _userRepository.Get(login.Username, login.Password);
+            var user = _userRepository.Get(login.Email, login.Password);
 
             if (user == null)
-                return NotFound("Usuário ou senha inválidos");
+                return NotFound("Email ou senha inválidos");
 
             var token = TokenService.GenerateToken(user);
 
