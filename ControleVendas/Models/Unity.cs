@@ -1,6 +1,6 @@
 ﻿namespace ControleVendas.Models
 {
-    public class Unity
+    public class Unit
     {
         public int Id { get; set; }
         public string Name { get; set; }

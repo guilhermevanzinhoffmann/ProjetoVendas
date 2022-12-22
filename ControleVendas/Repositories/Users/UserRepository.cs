@@ -1,7 +1,8 @@
 ﻿using ControleVendas.DBManager;
 using ControleVendas.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace ControleVendas.Repositories
+namespace ControleVendas.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {
@@ -12,9 +13,8 @@ namespace ControleVendas.Repositories
             _context = context;
         }
 
-        public User Get(string email, string password)
-        {
-            return _context.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
-        }
+        public async Task<User> GetAsync(string email, string password)
+            => await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+        
     }
 }

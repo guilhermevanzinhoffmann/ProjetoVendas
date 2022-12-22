@@ -1,5 +1,11 @@
 using ControleVendas.DBManager;
-using ControleVendas.Repositories;
+using ControleVendas.Items;
+using ControleVendas.Repositories.Sales;
+using ControleVendas.Repositories.Sellers;
+using ControleVendas.Repositories.Unities;
+using ControleVendas.Repositories.Users;
+using ControleVendas.Services.Sales;
+using ControleVendas.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -25,6 +31,11 @@ namespace ControleVendas
             );
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ISaleRepository, SaleRepository>();
+            builder.Services.AddScoped<ISaleService, SaleService>();
+            builder.Services.AddScoped<IUnitRepository, UnitRepository>();
+            builder.Services.AddScoped<ISellerRepository, SellerRepository>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

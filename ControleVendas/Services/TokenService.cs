@@ -1,4 +1,5 @@
-﻿using ControleVendas.Models;
+﻿using ControleVendas.Items;
+using ControleVendas.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

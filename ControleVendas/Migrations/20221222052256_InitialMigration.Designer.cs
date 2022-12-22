@@ -3,6 +3,7 @@ using System;
 using ControleVendas.DBManager;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleVendas.Migrations
 {
     [DbContext(typeof(SalesContext))]
-    partial class SalesContextModelSnapshot : ModelSnapshot
+    [Migration("20221222052256_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,16 +62,6 @@ namespace ControleVendas.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
-
-                    b.Property<string>("Latitude")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("latitude");
-
-                    b.Property<string>("Longitude")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("longitude");
 
                     b.Property<int?>("RoamingUnityId")
                         .HasColumnType("integer")
@@ -130,7 +123,7 @@ namespace ControleVendas.Migrations
                     b.HasIndex("ManagerID")
                         .IsUnique();
 
-                    b.ToTable("units", (string)null);
+                    b.ToTable("unities", (string)null);
                 });
 
             modelBuilder.Entity("ControleVendas.Models.User", b =>
@@ -243,7 +236,7 @@ namespace ControleVendas.Migrations
             modelBuilder.Entity("ControleVendas.Models.Unity", b =>
                 {
                     b.HasOne("ControleVendas.Models.Board", "Board")
-                        .WithMany("Units")
+                        .WithMany("Unities")
                         .HasForeignKey("BoardID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -305,7 +298,7 @@ namespace ControleVendas.Migrations
 
             modelBuilder.Entity("ControleVendas.Models.Board", b =>
                 {
-                    b.Navigation("Units");
+                    b.Navigation("Unities");
                 });
 
             modelBuilder.Entity("ControleVendas.Models.Unity", b =>

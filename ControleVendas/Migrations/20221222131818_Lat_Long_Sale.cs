@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleVendas.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class LatLongSale : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -102,7 +102,7 @@ namespace ControleVendas.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "unities",
+                name: "units",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -115,15 +115,15 @@ namespace ControleVendas.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_unities", x => x.id);
+                    table.PrimaryKey("PK_units", x => x.id);
                     table.ForeignKey(
-                        name: "FK_unities_boards_BoardID",
+                        name: "FK_units_boards_BoardID",
                         column: x => x.BoardID,
                         principalTable: "boards",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_unities_managers_ManagerID",
+                        name: "FK_units_managers_ManagerID",
                         column: x => x.ManagerID,
                         principalTable: "managers",
                         principalColumn: "id",
@@ -141,9 +141,9 @@ namespace ControleVendas.Migrations
                 {
                     table.PrimaryKey("PK_sellers", x => x.id);
                     table.ForeignKey(
-                        name: "FK_sellers_unities_UnityID",
+                        name: "FK_sellers_units_UnityID",
                         column: x => x.UnityID,
-                        principalTable: "unities",
+                        principalTable: "units",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -161,6 +161,9 @@ namespace ControleVendas.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     createdat = table.Column<DateTime>(name: "created_at", type: "timestamp with time zone", nullable: false),
+                    value = table.Column<float>(type: "real", nullable: false),
+                    latitude = table.Column<string>(type: "text", nullable: false),
+                    longitude = table.Column<string>(type: "text", nullable: false),
                     roamingunityid = table.Column<int>(name: "roaming_unity_id", type: "integer", nullable: true),
                     SellerID = table.Column<int>(type: "integer", nullable: false),
                     UnityID = table.Column<int>(type: "integer", nullable: false)
@@ -175,9 +178,9 @@ namespace ControleVendas.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_sales_unities_UnityID",
+                        name: "FK_sales_units_UnityID",
                         column: x => x.UnityID,
-                        principalTable: "unities",
+                        principalTable: "units",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -204,13 +207,13 @@ namespace ControleVendas.Migrations
                 column: "UnityID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_unities_BoardID",
-                table: "unities",
+                name: "IX_units_BoardID",
+                table: "units",
                 column: "BoardID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_unities_ManagerID",
-                table: "unities",
+                name: "IX_units_ManagerID",
+                table: "units",
                 column: "ManagerID",
                 unique: true);
         }
@@ -228,7 +231,7 @@ namespace ControleVendas.Migrations
                 name: "sellers");
 
             migrationBuilder.DropTable(
-                name: "unities");
+                name: "units");
 
             migrationBuilder.DropTable(
                 name: "boards");
