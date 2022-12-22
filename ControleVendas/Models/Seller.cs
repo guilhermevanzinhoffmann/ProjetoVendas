@@ -2,8 +2,8 @@
 {
     public class Seller : User
     {
-        public int UnityID { get; set; }
-        public virtual Unity Unity { get; set; }
+        public int UnitID { get; set; }
+        public virtual Unit Unit { get; set; }
         public virtual ICollection<Sale> Sales { get; set; }
     }
 }

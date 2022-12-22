@@ -1,7 +1,4 @@
-﻿using ControleVendas.DBManager;
-using ControleVendas.Models;
-
-namespace ControleVendas
+﻿namespace ControleVendas.Items
 {
     public static class Settings
     {

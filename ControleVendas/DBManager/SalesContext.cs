@@ -13,14 +13,14 @@ namespace ControleVendas.DBManager
         public virtual DbSet<Director> Directors { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
-        public virtual DbSet<Unity> Unities { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Board> Boards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             UserModelBuilder(modelBuilder);
             SaleModelBuilder(modelBuilder);
-            UnityModelBuilder(modelBuilder);
+            UnitModelBuilder(modelBuilder);
             BoardModelBuilder(modelBuilder);
         }
 
@@ -69,25 +69,28 @@ namespace ControleVendas.DBManager
                 s.HasKey(s => s.Id);
                 s.Property(s => s.Id).ValueGeneratedOnAdd().HasColumnName("id");
                 s.Property(s => s.CreatedAt).HasColumnName("created_at");
-                s.Property(s => s.RoamingUnityId).HasColumnName("roaming_unity_id");
+                s.Property(s => s.Value).HasColumnName("value");
+                s.Property(s => s.Latitude).HasColumnName("latitude");
+                s.Property(s => s.Longitude).HasColumnName("longitude");
+                s.Property(s => s.RoamingUnitId).HasColumnName("roaming_unit_id").IsRequired(false);
                 s.HasOne(s => s.Seller).WithMany(se => se.Sales);
-                s.HasOne(s => s.Unity).WithMany(u => u.Sales);
+                s.HasOne(s => s.Unit).WithMany(u => u.Sales);
             });
         }
 
-        private void UnityModelBuilder(ModelBuilder modelBuilder)
+        private void UnitModelBuilder(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Unity>(u =>
+            modelBuilder.Entity<Unit>(u =>
             {
-                u.ToTable("unities");
+                u.ToTable("units");
                 u.HasKey(u => u.Id);
                 u.Property(u => u.Id).ValueGeneratedOnAdd().HasColumnName("id");
                 u.Property(u => u.Name).HasColumnName("name");
                 u.Property(u => u.Latitude).HasColumnName("latitude");
                 u.Property(u => u.Longitude).HasColumnName("longitude");
-                u.HasOne(u => u.Manager).WithOne(m => m.Unity).HasForeignKey<Unity>(u => u.ManagerID);
-                u.HasOne(u => u.Board).WithMany(b => b.Unities);
-                u.HasMany(u => u.Sellers).WithOne(se => se.Unity);
+                u.HasOne(u => u.Manager).WithOne(m => m.Unit).HasForeignKey<Unit>(u => u.ManagerID);
+                u.HasOne(u => u.Board).WithMany(b => b.Units);
+                u.HasMany(u => u.Sellers).WithOne(se => se.Unit);
             });
         }
 

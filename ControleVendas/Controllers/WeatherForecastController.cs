@@ -21,10 +21,10 @@ namespace ControleVendas.Controllers
 
        
         [HttpGet(Name = "GetWeatherForecast")]
-        [Authorize]
+        [Authorize("Seller")]
         public ActionResult<string> Get()
         {
-            return User.Identity.Name;
+            return User.Identity.Name ;
         }
     }
 }

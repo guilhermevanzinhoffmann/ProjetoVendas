@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public int DirectorID { get; set; }
         public virtual Director Director { get; set; }
-        public virtual ICollection<Unity> Unities { get; set; }
+        public virtual ICollection<Unit> Units { get; set; }
     }
 }
