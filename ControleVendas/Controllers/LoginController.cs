@@ -1,7 +1,8 @@
 ﻿using ControleVendas.Models.Inputs;
 using ControleVendas.Models.Views;
-using ControleVendas.Repositories;
+using ControleVendas.Repositories.Users;
 using ControleVendas.Services;
+using ControleVendas.Services.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleVendas.Controllers
@@ -10,10 +11,10 @@ namespace ControleVendas.Controllers
     [Route("api/authentication")]
     public class LoginController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
-        public LoginController(IUserRepository userRepository)
+        private readonly IUserService _service;
+        public LoginController(IUserService service)
         {
-            _userRepository = userRepository;
+            _service = service;
         }
 
         [HttpPost]
@@ -25,7 +26,7 @@ namespace ControleVendas.Controllers
                 BadRequest($"Email e Password devem ser informados.");
             }
 
-            var user = _userRepository.Get(login.Email, login.Password);
+            var user = await _service.GetAsync(login.Email, login.Password);
 
             if (user == null)
                 return NotFound("Email ou senha inválidos");
