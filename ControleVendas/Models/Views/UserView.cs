@@ -10,7 +10,8 @@
             => new()
             {
                 Id = user.Id,
-                Name = user.Username
+                Name = user.Name, 
+                Email = user.Email,
             };
     }
 }

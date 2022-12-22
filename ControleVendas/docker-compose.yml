@@ -15,8 +15,16 @@ services:
         POSTGRES_DB: "sales"
     
     volumes:
+      - ./db/01_seed.sql:/docker-entrypoint-initdb.d/01_seed.sql
+      - ./db/02_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql
+      - ./db/03_seed.sql:/docker-entrypoint-initdb.d/03_seed.sql
+      - ./db/04_seed.sql:/docker-entrypoint-initdb.d/04_seed.sql
+      - ./db/05_seed.sql:/docker-entrypoint-initdb.d/05_seed.sql
+      - ./db/06_seed.sql:/docker-entrypoint-initdb.d/06_seed.sql
+      - ./db/07_seed.sql:/docker-entrypoint-initdb.d/07_seed.sql
+      - ./db/08_seed.sql:/docker-entrypoint-initdb.d/08_seed.sql
+      - ./db/09_seed.sql:/docker-entrypoint-initdb.d/09_seed.sql
       - db_volume:/var/lib/postgresql/data
-      - ./db/seed.sql:/docker-entrypoint-initdb.d/seed.sql
 
     ports:
       - "5432:5432"
@@ -24,6 +32,20 @@ services:
     networks:
       - controlevendas-dev
  
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
+    networks:
+      - controlevendas-dev  
+
   controlevendas:
     image: ${DOCKER_REGISTRY-}controlevendas
     depends_on:

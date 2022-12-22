@@ -12,14 +12,9 @@ namespace ControleVendas.Repositories
             _context = context;
         }
 
-        public User Get(string userName, string password)
+        public User Get(string email, string password)
         {
-            return _context.Users.FirstOrDefault(x => x.Username == userName && x.Password == password);
-            //var users = new List<User>
-            //{
-            //    new() { Id = 1, Username = "nome1", Password = "12345", Role = "manager" },
-            //    new() { Id = 2, Username = "nome2", Password = "12345", Role = "employee" }
-            //};
+            return _context.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
         }
     }
 }
