@@ -6,7 +6,7 @@ namespace ControleVendas.Repositories.Sales.SaleExtensions
 {
     public static class SaleExtension
     {
-        public static IQueryable<Sale> FilterAsync(this IQueryable<Sale> query, Expression<Func<Sale, bool>> predicate, Func<IQueryable<Sale>, IIncludableQueryable<Sale, object>> include)
+        public static IQueryable<Sale> FilterAsync(this IQueryable<Sale> query, Expression<Func<Sale, bool>>? predicate, Func<IQueryable<Sale>, IIncludableQueryable<Sale, object>> include)
         {
             if (include != null)
                 query = include(query);
