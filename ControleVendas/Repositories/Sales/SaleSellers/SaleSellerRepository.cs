@@ -3,14 +3,14 @@ using ControleVendas.Models;
 using ControleVendas.Repositories.Sales.SaleExtensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace ControleVendas.Repositories.Sales
+namespace ControleVendas.Repositories.Sales.SaleSellers
 {
-    public class SaleRepository : ISaleRepository 
+    public class SaleSellerRepository : ISaleSellerRepository
     {
         private readonly SalesContext _context;
-        public SaleRepository(SalesContext context) 
+        public SaleSellerRepository(SalesContext context)
         {
-             _context = context;
+            _context = context;
         }
 
         public async Task<Sale> GetFromSellerAsync(int id, int sellerId)
@@ -22,7 +22,7 @@ namespace ControleVendas.Repositories.Sales
                 .FirstOrDefaultAsync(s => s.Id == id);
 
         public async Task<IEnumerable<Sale>> GetAllSalesFromSellerAsync(int sellerId, string? initialPeriod, string? finalPeriod)
-        { 
+        {
             if (string.IsNullOrEmpty(initialPeriod) && string.IsNullOrEmpty(finalPeriod))
             {
                 return await _context.Sales.FilterAsync(s => s.SellerID == sellerId,
@@ -33,7 +33,7 @@ namespace ControleVendas.Repositories.Sales
             }
             else if (!string.IsNullOrEmpty(initialPeriod) && string.IsNullOrEmpty(finalPeriod))
             {
-                if(DateTime.TryParse(initialPeriod, out var createdAt))
+                if (DateTime.TryParse(initialPeriod, out var createdAt))
                 {
                     return await _context.Sales.FilterAsync(s => s.SellerID == sellerId && s.CreatedAt >= createdAt.ToUniversalTime(),
                         i => i.Include(s => s.Unit)

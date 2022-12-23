@@ -10,8 +10,8 @@ namespace ControleVendas.Controllers
     [Route("api/seller")]
     public class SellerController : ControllerBase
     {
-        private readonly ISaleService _service;
-        public SellerController(ISaleService service)
+        private readonly ISaleSellerService _service;
+        public SellerController(ISaleSellerService service)
         {
             _service = service;
         }
