@@ -2,7 +2,7 @@
 using ControleVendas.Models;
 using ControleVendas.Models.Inputs;
 using ControleVendas.Models.Views;
-using ControleVendas.Repositories.Sales;
+using ControleVendas.Repositories.Sales.SaleSellers;
 using ControleVendas.Repositories.Sellers;
 using ControleVendas.Repositories.Unities;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +10,13 @@ using System.Diagnostics;
 
 namespace ControleVendas.Services.Sales
 {
-    public class SaleService : ISaleService
+    public class SaleSellerService : ISaleSellerService
     {
-        private readonly ISaleRepository _repository;
+        private readonly ISaleSellerRepository _repository;
         private readonly IUnitRepository _unitRepository;
         private readonly ISellerRepository _sellerRepository;
         
-        public SaleService(ISaleRepository repository, IUnitRepository unitRepository, ISellerRepository sellerRepository) 
+        public SaleSellerService(ISaleSellerRepository repository, IUnitRepository unitRepository, ISellerRepository sellerRepository) 
         {
             _repository = repository;
             _unitRepository = unitRepository;
