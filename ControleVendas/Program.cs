@@ -2,12 +2,14 @@ using ControleVendas.DBManager;
 using ControleVendas.Items;
 using ControleVendas.Repositories.Sales.SaleDirectors;
 using ControleVendas.Repositories.Sales.SaleManagers;
+using ControleVendas.Repositories.Sales.SaleNationalDirector;
 using ControleVendas.Repositories.Sales.SaleSellers;
 using ControleVendas.Repositories.Sellers;
 using ControleVendas.Repositories.Unities;
 using ControleVendas.Repositories.Users;
 using ControleVendas.Services.SaleDirectors;
 using ControleVendas.Services.SaleManagers;
+using ControleVendas.Services.SaleNationalDirectors;
 using ControleVendas.Services.Sales;
 using ControleVendas.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,6 +44,8 @@ namespace ControleVendas
             builder.Services.AddScoped<ISaleManagerService, SaleManagerService>();
             builder.Services.AddScoped<ISaleDirectorRepository, SaleDirectorRepository>();
             builder.Services.AddScoped<ISaleDirectorService, SaleDirectorService>();
+            builder.Services.AddScoped<ISaleNationalDirectorRepository, SaleNationalDirectorRepository>();
+            builder.Services.AddScoped<ISaleNationalDirectorService, SaleNationalDirectorService>();
             builder.Services.AddScoped<IUnitRepository, UnitRepository>();
             builder.Services.AddScoped<ISellerRepository, SellerRepository>();
 

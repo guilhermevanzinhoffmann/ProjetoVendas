@@ -54,6 +54,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+ 
     
     networks:
       - controlevendas-dev
